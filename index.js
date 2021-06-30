@@ -27,6 +27,6 @@ app.post('/submit-student-data', function (req, res) {
     res.send(name + ' Submitted Successfully!');
 });
 
-var server = app.listen(80, function () {
+var server = app.listen(8080, function () {
     console.log('Node server is running..');
 });
