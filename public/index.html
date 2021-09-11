@@ -7,7 +7,13 @@
 	
 	</HEAD>
 	<link rel="stylesheet" href="public/main.css" type="text/css"/>
-	<BODY >
+	<script src="https://www.google.com/recaptcha/enterprise.js?render=6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"></script>
+	 <script>
+       function onSubmit(token) {
+         console.log(token);
+       }
+     </script>
+	<BODY>
 		<div class="container">
 			<form>
 				<div class="field" tabindex="1">
@@ -28,7 +34,10 @@
 					</label>
 					<textarea name="message" placeholder="type here" required></textarea>
 				</div>
-				<button type="reset">Send Me Message</button>
+				<button class="g-recaptcha"
+				data-sitekey="6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"
+				data-callback='onSubmit'
+				data-action='submit'>Submit</button>
 		
 			</form>
 		</div>
