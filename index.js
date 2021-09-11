@@ -13,7 +13,7 @@ app.use('/', express.static('public'))
 
 app.post('/submit', function (req, res) {
     createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
-    res.send(name + ' Submitted Successfully!');
+    res.send(' Submitted Successfully!');
 });
 
 var server = app.listen(8080, function () {
