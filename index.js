@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var forms = require('forms');
 var bodyParser = require("body-parser");
-const { default: createAssessment } = require('./lib/google');
+const createAssessment = require('./lib/google');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static('public'))
 //test
@@ -12,7 +12,6 @@ app.use('/', express.static('public'))
 // });
 
 app.post('/submit', function (req, res) {
-    var name = req.body.firstName + ' ' + req.body.lastName;
     createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
     res.send(name + ' Submitted Successfully!');
 });
