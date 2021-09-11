@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/samuelmazilu2/ancbp#readme",
   "dependencies": {
+    "@google-cloud/recaptcha-enterprise": "2.2.1",
     "express": "4.17.1",
     "forms": "1.3.2"
   }
