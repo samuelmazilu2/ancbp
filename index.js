@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static('public'))
 const { body, validationResult } = require('express-validator');
 const { createNewForm } = require('./lib/data');
+const logger = require('./lib/logger');
 
 var limiter = new RateLimit({
   windowMs: 1*60*1000, // 1 minute
@@ -32,6 +33,6 @@ app.post('/submit', body('name').isLength({ min: 5 }), body('email').isEmail(), 
     res.send('Submitted Successfully!');
 });
 var server = app.listen(8080, function () {
-    console.log('Node server is running..');
+    logger.info('Node server is running..');
 });
 
