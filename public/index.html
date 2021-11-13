@@ -3,7 +3,7 @@
 
 	<HEAD>
 	
-	<TITLE>Your Title Here</TITLE>
+	<TITLE>Complain Form</TITLE>
 	
 	</HEAD>
 	<link rel="stylesheet" href="main.css" type="text/css"/>
@@ -19,10 +19,10 @@
 			<form action="/submit" method="POST" id="submit-form">
 				<input id="g_token" name="g_token" type="hidden" value="" required>
 				<div class="field" tabindex="1">
-					<label for="username">
+					<label for="name">
 						<i class="far fa-user"></i>Your Name
 					</label>
-					<input name="username" type="text" placeholder="e.g. john doe" required>
+					<input name="name" type="text" placeholder="e.g. john doe" required>
 				</div>
 				<div class="field" tabindex="2">
 					<label for="email">
@@ -35,6 +35,12 @@
 						<i class="far fa-edit"></i>Your Message
 					</label>
 					<textarea name="message" placeholder="your message" required></textarea>
+				</div>
+				<div class="field" tabindex="4">
+					<label for="location">
+						<i class="far fa-edit"></i>Location
+					</label>
+					<input name="location" type="text" placeholder="GPS Location" required>
 				</div>
 				<button class="g-recaptcha"
 				data-sitekey="6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"
