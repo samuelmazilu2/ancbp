@@ -1,2 +1,10 @@
 [2021-11-13T23:12:08.798] [INFO] default - Node server is running..
 [2021-11-14T10:05:26.130] [INFO] default - Node server is running..
+[2021-11-14T14:44:51.831] [INFO] default - Node server is running..
+[2021-11-14T15:08:18.044] [INFO] default - Node server is running..
+[2021-11-14T15:12:27.919] [INFO] default - Start /submit
+[2021-11-14T15:12:27.976] [INFO] default - New form created
+[2021-11-14T15:12:27.977] [INFO] default - { name: 'tet', email: 'tete', message: 'tete', location: 'tete' }
+[2021-11-14T15:14:57.944] [INFO] default - Node server is running..
+[2021-11-14T15:15:04.593] [INFO] default - Start /submit
+[2021-11-14T15:17:57.223] [INFO] default - Node server is running..

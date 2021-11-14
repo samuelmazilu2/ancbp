@@ -7,13 +7,13 @@
 	
 	</HEAD>
 	<link rel="stylesheet" href="main.css" type="text/css"/>
-	<script src="https://www.google.com/recaptcha/enterprise.js?render=6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"></script>
-	 <script>
+	<!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"></script> -->
+	 <!-- <script>
        function onSubmit(token) {
 		 document.getElementById("g_token").value = token;
 		 document.getElementById("submit-form").submit();
        }
-     </script>
+     </script> -->
 	<BODY>
 		<div class="container">
 			<form action="/submit" method="POST" id="submit-form">
@@ -42,10 +42,11 @@
 					</label>
 					<input name="location" type="text" placeholder="GPS Location" required>
 				</div>
-				<button class="g-recaptcha"
+				<!-- <button class="g-recaptcha"
 				data-sitekey="6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"
-				data-callback='onSubmit'
-				data-action='submit'>Submit</button>
+				data-callback='onSubmit' 
+				data-action='submit'>Submit</button> -->
+				<button type="submit" name="submit">Submit</button>
 		
 			</form>
 		</div>

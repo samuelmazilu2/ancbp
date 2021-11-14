@@ -26,7 +26,11 @@ try {
   app.get('/health', (req, res) => res.status(200).send("ok"));
   app.post('/submit', body('name').isLength({ min: 5 }), body('email').isEmail(), body('message').isLength({min:100}), async(req, res) => {
       logger.info('Start /submit')
-      createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
+      //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
       await createNewForm({
         name: req.body.name,
         email: req.body.email,
