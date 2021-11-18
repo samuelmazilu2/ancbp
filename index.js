@@ -5,11 +5,12 @@ const forms = require('forms');
 const bodyParser = require("body-parser");
 const path = require('path');
 const createAssessment = require('./lib/google');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', express.static('public'))
 const { body, validationResult } = require('express-validator');
 const { createNewForm } = require('./lib/data');
 const logger = require('./lib/logger');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', express.static('public'));
 
 try {
   var limiter = new RateLimit({
@@ -24,7 +25,11 @@ try {
       });
   });
   app.get('/health', (req, res) => res.status(200).send("ok"));
-  app.post('/submit', body('name').isLength({ min: 5 }), body('email').isEmail(), body('message').isLength({min:100}), async(req, res) => {
+  app.post('/submit', 
+    body('name').isLength({ min: 5 }), 
+    body('email').isEmail(), 
+    body('phone').isMobilePhone(),
+    body('message').isLength({min:100}), async(req, res) => {
       logger.info('Start /submit')
       //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
       const errors = validationResult(req);
@@ -33,13 +38,14 @@ try {
       }
       await createNewForm({
         name: req.body.name,
+        phone: req.body.phone,
         email: req.body.email,
         message: req.body.message,
         location: req.body.location
       })
       res.send('Submitted Successfully!');
   });
-  var server = app.listen(8080, function () {
+  var server = app.listen(3000, function () { // 8080
       logger.info('Node server is running..');
   });
   
