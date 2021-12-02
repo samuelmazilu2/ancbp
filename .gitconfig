@@ -1,0 +1,6 @@
+[user]
+	name = Claudiu Olenici
+	email = c.olenici@yahoo.com
+[http]
+    sslVerify = false  
+ 
