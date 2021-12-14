@@ -47,7 +47,7 @@ try {
       })
       res.send('Submitted Successfully!');
   });
-  var server = app.listen(3000, function () { // 8080
+  var server = app.listen(8080, function () { // 3000   
       logger.info('Node server is running..');
   });
   
