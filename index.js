@@ -29,7 +29,9 @@ try {
     body('name').isLength({ min: 5 }), 
     body('email').isEmail(), 
     body('phone').isMobilePhone(),
-    body('message').isLength({min:100}), async(req, res) => {
+    body('message').isLength({min:100}), 
+    
+    async(req, res) => {
       logger.info('Start /submit')
       //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
       const errors = validationResult(req);
@@ -45,7 +47,7 @@ try {
       })
       res.send('Submitted Successfully!');
   });
-  var server = app.listen(3000, function () { // 8080
+  var server = app.listen(8080, function () { // 3000   
       logger.info('Node server is running..');
   });
   

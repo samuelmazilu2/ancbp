@@ -17,3 +17,14 @@ Fixed git origin/remote access at PUSH by:
 https://stackoverflow.com/questions/4220416/can-i-specify-multiple-users-for-myself-in-gitconfig
 
 ********************************************    
+
+BRANCH NAMING (EPICS):
+
+FUNC_XX1 -> functionality 
+TECH_XX2 -> technical improvements/deploy/settings
+MODULE_XX3 -> add big functionality/internal component/module
+LIB_XX4 -> add library/external module
+ML_XX5 -> robots/ML
+
+e.g.: FUNC_001-AddFields...
+********************************************  
