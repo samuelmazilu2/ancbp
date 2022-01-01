@@ -6,12 +6,13 @@ const bodyParser = require("body-parser");
 const path = require('path');
 const createAssessment = require('./lib/google');
 const { body, validationResult } = require('express-validator');
-const { createNewForm } = require('./lib/data');
+const { createNewForm, createNewFile } = require('./lib/data');
+const multer = require('multer');
 const logger = require('./lib/logger');
-
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static('public'));
-
 try {
   var limiter = new RateLimit({
     windowMs: 1*60*1000, // 1 minute
@@ -26,23 +27,32 @@ try {
   });
   app.get('/health', (req, res) => res.status(200).send("ok"));
   app.post('/submit', 
+    upload.array('files', 12),
     body('name').isLength({ min: 5 }), 
     body('email').isEmail(), 
     body('phone').isMobilePhone(),
-    body('message').isLength({min:100}), async(req, res) => {
+    body('message').isLength({min:100}), 
+   
+    async(req, res) => {
       logger.info('Start /submit')
       //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-      await createNewForm({
+      logger.info(req.body);
+      const form = await createNewForm({
         name: req.body.name,
         phone: req.body.phone,
         email: req.body.email,
         message: req.body.message,
-        location: req.body.location
+        location: req.body.location,
+        city: req.body.city,
+        county: req.body.county
       })
+      req.files.forEach((image) => {
+        createNewFile({name: image.originalname, data: image.buffer ? image.buffer.toString('base64') : '', formId: form.id})
+    });
       res.send('Submitted Successfully!');
   });
   var server = app.listen(3000, function () { // 8080

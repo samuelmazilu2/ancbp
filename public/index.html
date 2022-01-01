@@ -16,36 +16,54 @@
      </script> -->
 	<BODY>
 		<div class="container">
-			<form action="/submit" method="POST" id="submit-form">
+			<form action="/submit" method="POST" id="submit-form"    encType="multipart/form-data">
 				<input id="g_token" name="g_token" type="hidden" value="" required>
 				<div class="field" tabindex="1">
 					<label for="name">
-						<i class="far fa-user"></i>Your Name
+						<i class="far fa-user"></i>Nume
 					</label>
 					<input name="name" type="text" placeholder="e.g. john doe" required>
 				</div>
 				<div class="field" tabindex="2">
 					<label for="email">
-						<i class="far fa-envelope"></i>Your Email
+						<i class="far fa-envelope"></i>Email
 					</label>
 					<input name="email" type="text" placeholder="email@domain.com" required>
 				</div><div class="field" tabindex="2">
 					<label for="phone">
-						<i class="far fa-envelope"></i>Your Phone Number
+						<i class="far fa-envelope"></i>Numar de telefon
 					</label>
 					<input name="phone" type="text" placeholder="07..." required>
 				</div>
 				<div class="field" tabindex="3">
 					<label for="message">
-						<i class="far fa-edit"></i>Your Message
+						<i class="far fa-edit"></i>Descriere 
 					</label>
 					<textarea name="message" placeholder="your message" required></textarea>
 				</div>
+				<div class="field" tabindex="3">
+					<label for="city">
+						<i class="far fa-edit"></i>Localitate
+					</label>
+					<textarea name="city" placeholder="Localitate" required></textarea>
+				</div>
+				<div class="field" tabindex="3">
+					<label for="county">
+						<i class="far fa-edit"></i>Judet
+					</label>
+					<textarea name="county" placeholder="Judet" required></textarea>
+				</div>
 				<div class="field" tabindex="4">
 					<label for="location">
-						<i class="far fa-edit"></i>Location
+						<i class="far fa-edit"></i>Locatie GPS
 					</label>
-					<input name="location" type="text" placeholder="GPS Location" required>
+					<input name="location" type="text" placeholder="GPS Location">
+				</div>
+				<div class="field" tabindex="4">
+					<label for="file">
+						<i class="far fa-edit"></i>Imagini
+					</label>
+					<input type="file" id="files" name="files" multiple><br><br>
 				</div>
 				<!-- <button class="g-recaptcha"
 				data-sitekey="6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"
