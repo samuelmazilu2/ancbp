@@ -1,5 +1,6 @@
 const express = require('express');
 const RateLimit = require('express-rate-limit');
+var uuid = require('uuid');
 const app = express();
 const forms = require('forms');
 const bodyParser = require("body-parser");
@@ -9,6 +10,8 @@ const { body, validationResult } = require('express-validator');
 const { createNewForm, createNewFile } = require('./lib/data');
 const multer = require('multer');
 const logger = require('./lib/logger');
+const { sendMail } = require('./lib/email');
+const { formatFormForEmail } = require('./lib/messageFormatter');
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,7 +35,6 @@ try {
     body('email').isEmail(), 
     body('phone').isMobilePhone(),
     body('message').isLength({min:100}), 
-   
     async(req, res) => {
       logger.info('Start /submit')
       //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
@@ -41,18 +43,24 @@ try {
         return res.status(400).json({ errors: errors.array() });
       }
       logger.info(req.body);
-      const form = await createNewForm({
+      const reqForm = {
         name: req.body.name,
         phone: req.body.phone,
         email: req.body.email,
         message: req.body.message,
         location: req.body.location,
         city: req.body.city,
-        county: req.body.county
-      })
+        county: req.body.county,
+        uuid: uuid.v1()
+      };
+      const form = await createNewForm(reqForm);
+      if(!form.id) {
+        res.send('Form creation failed!');
+      }
       req.files.forEach((image) => {
-        createNewFile({name: image.originalname, data: image.buffer ? image.buffer.toString('base64') : '', formId: form.id})
+        createNewFile({name: image.originalname, data: image.buffer ? image.buffer.toString('base64') : '', formId: form.id});
     });
+      sendMail(process.env.EMAIL_TO, 'Formular nou', formatFormForEmail(reqForm));
       res.send('Submitted Successfully!');
   });
   var server = app.listen(process.env.PORT || 3000, function () { // 8080
