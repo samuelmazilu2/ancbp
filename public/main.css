@@ -107,3 +107,18 @@ button:hover {
     width: 100%;
   }
 }
+
+form {
+  position: relative;
+  padding-top: 100px; /* adjust as needed */
+  max-width: 600px; /* adjust as needed */
+  margin: 0 auto;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100px; /* adjust as needed */
+  z-index: 999;
+}
