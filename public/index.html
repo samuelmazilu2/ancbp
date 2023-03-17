@@ -15,7 +15,10 @@
 		 document.getElementById("submit-form").submit();
        }
      </script> -->
+	
 	<BODY>
+		
+		
 		<div class="container">
 			<form action="/submit" method="POST" id="submit-form"    encType="multipart/form-data">
 				<input id="g_token" name="g_token" type="hidden" value="" required>
@@ -55,10 +58,20 @@
 					<textarea name="county" placeholder="Judet" required></textarea>
 				</div>
 				<div class="field" tabindex="4">
-					<label for="location">
+					<!-- <label for="location">
 						<i class="far fa-edit"></i>Locatie GPS
 					</label>
-					<input name="location" type="text" placeholder="GPS Location">
+					<input name="location" type="text" placeholder="GPS Location"> -->
+					<input id="location" type="text" placeholder="Current Location">
+					<button id="openMap">Open Map</button>
+				
+					<div id="overlay" class="overlay"></div>
+					<div id="mapPopup" class="popup">
+						<div id="map"></div>
+						<button id="closeMap">Close Map</button>
+					</div>
+
+ 
 				</div>
 				<div class="field" tabindex="4">
 					<label for="file">
@@ -75,6 +88,8 @@
 				<a class="field" href="https://formular230.ro/organizatia-pentru-protectia-mediului-si-combaterea-braconajului">Completeaza formularul 230</a></div>	
 			</form>
 		</div>
+		<script src="map.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEEKZhvdDCqUQxZfvg_3XZdKcrGMUbgIU&callback=initMap&libraries=places"></script>
 	</BODY>
 	
 	</HTML>
