@@ -77,7 +77,7 @@ function updateLocationField(latlng) {
     geocoder.geocode({ 'location': latlng }, function (results, status) {
         if (status === 'OK') {
             if (results[0]) {
-                input.value = results[0].formatted_address + ' (' + latlng.lat.toFixed(6) + ', ' + latlng.lng.toFixed(6) + ')';
+                input.value = results[0].formatted_address + ' (' + results[0].geometry.location.lat().toFixed(6) + ', ' + results[0].geometry.location.lng().toFixed(6) + ')';
             } else {
                 input.value = 'Location not found';
             }
