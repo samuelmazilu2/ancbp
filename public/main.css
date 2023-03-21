@@ -198,3 +198,15 @@ form {
     height: 400px;
   }
 }
+
+.logo {
+  display: block;
+  padding-left: 25%;
+  padding-right: 25%;
+
+}
+
+.form-title {
+  font-size: 2rem; /* adjust the value to your desired size */
+  font-weight: bold;
+}

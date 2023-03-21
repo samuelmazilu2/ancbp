@@ -20,9 +20,11 @@
 		
 		
 		<div class="container">
-			<p>Complaint Form</p>
-	<img class="logo" src="images/LOGO_OPMCB_CERC_MODERN.jpg" alt="Logo">
+		
+	
 			<form action="/submit" method="POST" id="submit-form"    encType="multipart/form-data">
+				<div class="field"><img class="logo" src="images/LOGO_OPMCB_CERC_MODERN.jpg" alt="Logo" /> </div>
+				<div class="field form-title">	<p>Formular sesizare</p></div>
 				<input id="g_token" name="g_token" type="hidden" value="" required>
 				<div class="field" tabindex="1">
 					<label for="name">
@@ -65,12 +67,12 @@
 					</label>
 					
 					<input id="location" type="text" placeholder="Locatia incidentului">
-					<button id="openMap">Map</button>
+					<button id="openMap" type="button">Map</button>
 				
 					<div id="overlay" class="overlay"></div>
 					<div id="mapPopup" class="popup">
 						<div id="map"></div>
-						<button id="closeMap">Close Map</button>
+						<button id="closeMap" type="button">Close Map</button>
 					</div>
 
  
