@@ -28,7 +28,7 @@
     "multer": "1.4.4",
     "nodemailer": "6.7.2",
     "sequelize": "6.9.0",
-    "sqlite3": "5.0.2",
-    "uuid": "8.3.2"
+    "sqlite3": "^5.1.6",
+    "uuid": "^8.3.2"
   }
 }

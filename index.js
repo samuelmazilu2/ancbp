@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const path = require('path');
 const createAssessment = require('./lib/google');
 const { body, validationResult } = require('express-validator');
-const { createNewForm, createNewFile } = require('./lib/data');
+const { createNewForm, createNewFile, getFile } = require('./lib/data');
 const multer = require('multer');
 const logger = require('./lib/logger');
 const { sendMail } = require('./lib/email');
@@ -29,6 +29,34 @@ try {
       });
   });
   app.get('/health', (req, res) => res.status(200).send("ok"));
+  app.get('/download/:uuid', async (req, res) => {
+    try {
+      // find the file in the database
+      const file = getFile(req.params.uuid);
+      if (!file) {
+        return res.status(404).send('No file found with the given uuid');
+      }
+  
+      // decode the base64 data back into binary
+      const binaryData = Buffer.from(file.data, 'base64');
+  
+      // set the content-type header based on the file type
+      // assuming the 'name' field in your file model contains the file name with extension
+      const mimeType = require('mime-types').lookup(file.name);
+      res.setHeader('Content-Type', mimeType || 'application/octet-stream');
+  
+      // set the content-disposition header so browsers handle the data correctly
+      res.setHeader('Content-Disposition', `attachment; filename=${file.name}`);
+  
+      // send the data
+      res.send(binaryData);
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+    }
+  });
+  
   app.post('/submit', 
     upload.array('files', 12),
     body('name').isLength({ min: 5 }), 
@@ -57,9 +85,15 @@ try {
       if(!form.id) {
         res.send('Form creation failed!');
       }
-      req.files.forEach((image) => {
-        createNewFile({name: image.originalname, data: image.buffer ? image.buffer.toString('base64') : '', formId: form.id});
-    });
+      const filesList = [];
+
+      for(const file of req.files){
+        const imageFile = await createNewFile({name: file.originalname, data: file.buffer ? file.buffer.toString('base64') : '', formId: form.id});
+        filesList.push(imageFile);
+      }
+   
+    reqForm.files = filesList;
+    reqForm.baseUrl = req.protocol + '://' + req.get('host');
       sendMail(process.env.EMAIL_TO, 'Formular nou', formatFormForEmail(reqForm));
       res.send('Submitted Successfully!');
   });

@@ -39,16 +39,20 @@ function initMap() {
             map.setCenter(pos);
             marker.setPosition(pos);
             marker.setVisible(true);
-            updateLocationField(pos);
+            updateLocationGPS(pos);
         });
     }
 }
 function onMarkerDragEnd() {
-    updateLocationField(marker.getPosition());
+    const position = marker.getPosition();
+    const latlng = {lat: position.lat(), lng: position.lng()};
+    updateLocationGPS(latlng);
 }
 
 document.getElementById('closeMap').addEventListener('click', () => {
-    updateLocationField(marker.getPosition());
+    const position = marker.getPosition();
+    const latlng = {lat: position.lat(), lng: position.lng()};
+    updateLocationGPS(latlng);
     closeMapPopup();
 });
 
@@ -85,6 +89,10 @@ function updateLocationField(latlng) {
             input.value = 'Geocoder failed due to: ' + status;
         }
     });
+}
+
+function updateLocationGPS(latlng){
+    input.value = latlng.lat + "," + latlng.lng;
 }
 
 function openMapPopup() {
