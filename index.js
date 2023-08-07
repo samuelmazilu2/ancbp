@@ -15,7 +15,17 @@ const { formatFormForEmail } = require('./lib/messageFormatter');
 const helmet = require('helmet')
 
 // Use Helmet!
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://maps.googleapis.com"],
+      imgSrc: ["'self'", "https://cfriedri.ch", "https://images.unsplash.com"],
+      // Add other directives as needed
+    },
+  })
+);
+
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 app.use(bodyParser.urlencoded({ extended: false }));
