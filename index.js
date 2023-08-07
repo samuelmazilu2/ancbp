@@ -12,21 +12,25 @@ const multer = require('multer');
 const logger = require('./lib/logger');
 const { sendMail } = require('./lib/email');
 const { formatFormForEmail } = require('./lib/messageFormatter');
+const helmet = require('helmet')
+
+// Use Helmet!
+app.use(helmet());
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static('public'));
 try {
   var limiter = new RateLimit({
-    windowMs: 1*60*1000, // 1 minute
+    windowMs: 1 * 60 * 1000, // 1 minute
     max: process.env.MAX_REQUESTS_PER_MINUTE
   });
   app.get('/vcard', (req, res) => {
-      const fileDirectory = path.resolve(__dirname, '.', 'public/');
-      res.sendFile('vcard.vcf', {root: fileDirectory}, (err) => {
-        res.end(); 
-        if (err) throw(err);
-      });
+    const fileDirectory = path.resolve(__dirname, '.', 'public/');
+    res.sendFile('vcard.vcf', { root: fileDirectory }, (err) => {
+      res.end();
+      if (err) throw (err);
+    });
   });
   app.get('/health', (req, res) => res.status(200).send("ok"));
   app.get('/download/:uuid', async (req, res) => {
@@ -36,34 +40,34 @@ try {
       if (!file) {
         return res.status(404).send('No file found with the given uuid');
       }
-  
+
       // decode the base64 data back into binary
       const binaryData = Buffer.from(file.data, 'base64');
-  
+
       // set the content-type header based on the file type
       // assuming the 'name' field in your file model contains the file name with extension
       const mimeType = require('mime-types').lookup(file.name);
       res.setHeader('Content-Type', mimeType || 'application/octet-stream');
-  
+
       // set the content-disposition header so browsers handle the data correctly
       res.setHeader('Content-Disposition', `attachment; filename=${file.name}`);
-  
+
       // send the data
       res.send(binaryData);
-  
+
     } catch (error) {
       console.error(error);
       res.status(500).send('Server error');
     }
   });
-  
-  app.post('/submit', 
+
+  app.post('/submit',
     upload.array('files', 12),
-    body('name').isLength({ min: 5 }), 
-    body('email').isEmail(), 
+    body('name').isLength({ min: 5 }),
+    body('email').isEmail(),
     body('phone').isMobilePhone(),
-    body('message').isLength({min:100}), 
-    async(req, res) => {
+    body('message').isLength({ min: 100 }),
+    async (req, res) => {
       logger.info('Start /submit')
       //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
       const errors = validationResult(req);
@@ -82,28 +86,28 @@ try {
         uuid: uuid.v1()
       };
       const form = await createNewForm(reqForm);
-      if(!form.id) {
+      if (!form.id) {
         res.send('Form creation failed!');
       }
       const filesList = [];
 
-      for(const file of req.files){
-        const imageFile = await createNewFile({name: file.originalname, data: file.buffer ? file.buffer.toString('base64') : '', formId: form.id});
+      for (const file of req.files) {
+        const imageFile = await createNewFile({ name: file.originalname, data: file.buffer ? file.buffer.toString('base64') : '', formId: form.id });
         filesList.push(imageFile);
       }
-   
-    reqForm.files = filesList;
-    reqForm.baseUrl = req.protocol + '://' + req.get('host');
+
+      reqForm.files = filesList;
+      reqForm.baseUrl = req.protocol + '://' + req.get('host');
       sendMail(process.env.EMAIL_TO, 'Formular nou', formatFormForEmail(reqForm));
-      res.send('Submitted Successfully!');
-  });
+      res.send('Va multumim!');
+    });
   var server = app.listen(process.env.PORT || 3000, function () { // 8080
-      logger.info('Node server is running..');
+    logger.info('Node server is running..');
   });
-  
-  
+
+
 }
-catch(ex){
+catch (ex) {
   logger.error("error encountered in main loop!");
   logger.error(ex);
 }
