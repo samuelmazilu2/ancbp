@@ -6,7 +6,7 @@
 
 
     <title>Formular Sesizare</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
@@ -21,31 +21,31 @@
 			    <i class="form-icon fas fa-user"></i>
 			    Nume <span style="color: red;">*</span>:
 			</label>
-            <input type="text" id="name" name="name" class="form-field" placeholder="E.g: Maria Popescu" required>
+            <input type="text" id="name" name="name" class="form-field" placeholder="E.g: Maria Popescu">
 
             <label class="form-label" for="email">
                 <i class="form-icon fas fa-envelope"></i>
                 Email <span style="color: red;">*</span>:
             </label>
-            <input type="email" id="email" name="email" class="form-field" placeholder="Email@domeniu.com" required>
+            <input type="email" id="email" name="email" class="form-field" placeholder="Email@domeniu.com">
 
             <label class="form-label" for="phone">
                 <i class="form-icon fas fa-phone-alt"></i>
                 Numar de telefon <span style="color: red;">*</span>:
             </label>
-            <input type="tel" id="phone" name="phone" class="form-field" placeholder="07..." required> 
+            <input type="tel" id="phone" name="phone" class="form-field" placeholder="07...">
 
             <label class="form-label" for="description">
                 <i class="form-icon fas fa-info-circle"></i>
                 Descrierea problemei <span style="color: red;">*</span>:
             </label>
-            <textarea id="description" name="description" class="form-field" placeholder="Descrierea problemei" rows="4" style="resize: vertical;" required></textarea>
+            <textarea id="description" name="description" class="form-field" placeholder="Descrierea problemei" rows="4" style="resize: vertical;"></textarea>
 
             <label class="form-label" for="locality">
                 <i class="form-icon fas fa-map-marker-alt"></i>
                 Localitate <span style="color: red;">*</span>:
             </label>
-           <input type="text" id="locality" name="city" class="form-field" placeholder="Localitate" required>
+           <input type="text" id="locality" name="locality" class="form-field" placeholder="Localitate">
 
             <label class="form-label" for="county">
                 <i class="form-icon fas fa-map"></i>
@@ -111,7 +111,7 @@
 			    <i class="form-icon fas fa-file"></i>
 			    Alege fisierele:
 			</label>
-            <input type="file" id="files" name="files" multiple  class="form-field">
+			<input type="file" id="file" name="file[]" class="form-field" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple onchange="handleFileUpload()">
 
     <div class="wrapper-no4">
        	<button type="button" class="button-bird" id="submit-button" onclick="handleButtonClick()">
@@ -173,7 +173,7 @@
 		  const formData = new FormData(form);
 
 		  const xhr = new XMLHttpRequest();
-		  xhr.open("POST", "/submit");
+		  xhr.open("POST", "process_form.php");
 		  xhr.onreadystatechange = function () {
 		    if (xhr.readyState === XMLHttpRequest.DONE) {
 		      if (xhr.status === 200) {
@@ -186,7 +186,6 @@
 		    }
 		  };
 		  xhr.send(formData);
-
 		}
         let map, marker;
 
@@ -282,7 +281,7 @@
         }
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEEKZhvdDCqUQxZfvg_3XZdKcrGMUbgIU&callback=initMap&libraries=places" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdPusHO34CnOZK96sFrLTgLBLN5kIS3V8&libraries=places&callback=initMap" async defer></script>
     
 
 </body>

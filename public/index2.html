@@ -1,0 +1,101 @@
+
+<HTML>
+
+	<HEAD>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<TITLE>Sesizeaza o neregula!</TITLE>
+	
+
+	</HEAD>
+	<link rel="stylesheet" href="main.css" type="text/css"/>
+	<!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"></script> -->
+	 <!-- <script>
+       function onSubmit(token) {
+		 document.getElementById("g_token").value = token;
+		 document.getElementById("submit-form").submit();
+       }
+     </script> -->
+	
+	<BODY>
+		
+		
+		<div class="container">
+		
+	
+			<form action="/submit" method="POST" id="submit-form"    encType="multipart/form-data">
+				<div class="field"><img class="logo" src="images/LOGO_OPMCB_CERC_MODERN.jpg" alt="Logo" /> </div>
+				<div class="field form-title">	<p>Formular sesizare</p></div>
+				<input id="g_token" name="g_token" type="hidden" value="" required>
+				<div class="field" tabindex="1">
+					<label for="name">
+						<i class="far fa-user"></i>Nume
+					</label>
+					<input name="name" type="text" placeholder="e.g. john doe" required>
+				</div>
+				<div class="field" tabindex="2">
+					<label for="email">
+						<i class="far fa-envelope"></i>Email
+					</label>
+					<input name="email" type="text" placeholder="email@domain.com" required>
+				</div><div class="field" tabindex="2">
+					<label for="phone">
+						<i class="far fa-envelope"></i>Numar de telefon
+					</label>
+					<input name="phone" type="text" placeholder="07..." required>
+				</div>
+				<div class="field" tabindex="3">
+					<label for="message">
+						<i class="far fa-edit"></i>Descriere 
+					</label>
+					<textarea name="message" placeholder="your message" required></textarea>
+				</div>
+				<div class="field" tabindex="3">
+					<label for="city">
+						<i class="far fa-edit"></i>Localitate
+					</label>
+					<textarea name="city" placeholder="Localitate" required></textarea>
+				</div>
+				<div class="field" tabindex="3">
+					<label for="county">
+						<i class="far fa-edit"></i>Judet
+					</label>
+					<textarea name="county" placeholder="Judet" required></textarea>
+				</div>
+				<div class="field" tabindex="4">
+					<label for="location">
+						<i class="far fa-edit"></i>Locatie GPS
+					</label>
+					
+					<input id="location" type="text" placeholder="Locatia incidentului">
+					<button id="openMap" type="button">Map</button>
+				
+					<div id="overlay" class="overlay"></div>
+					<div id="mapPopup" class="popup">
+						<div id="map"></div>
+						<button id="closeMap" type="button">Close Map</button>
+					</div>
+
+ 
+				</div>
+				<div class="field" tabindex="4">
+					<label for="file">
+						<i class="far fa-edit"></i>Imagini
+					</label>
+					<input type="file" id="files" name="files" multiple><br><br>
+				</div>
+				<!-- <button class="g-recaptcha"
+				data-sitekey="6LdkHF0cAAAAADw9vQ3bPQdFJ3Y0JctXWwtcI39k"
+				data-callback='onSubmit' 
+				data-action='submit'>Submit</button> -->
+				<button type="submit" name="submit">Submit</button>
+				<P>Sustine activitatea OPMCB aici:</P>
+				<a class="field" href="https://formular230.ro/organizatia-pentru-protectia-mediului-si-combaterea-braconajului">Completeaza formularul 230</a></div>	
+			</form>
+		</div>
+		<script src="map.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEEKZhvdDCqUQxZfvg_3XZdKcrGMUbgIU&callback=initMap&libraries=places"></script>
+	</BODY>
+	
+	</HTML>
+	
+	 
