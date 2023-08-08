@@ -19,6 +19,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "https://maps.googleapis.com"],
       scriptSrc: ["'self'", "https://maps.googleapis.com"],
       imgSrc: ["'self'", "https://cfriedri.ch", "https://images.unsplash.com"],
       // Add other directives as needed
