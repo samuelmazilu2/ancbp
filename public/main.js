@@ -1,5 +1,4 @@
 const submitButton = document.getElementById("submit-button");
-submitButton.addEventListener("click", handleSubmit);
 
 function handleSubmit() {
   const form = document.getElementById("submit-form");

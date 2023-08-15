@@ -47,13 +47,13 @@ try {
   app.get('/download/:uuid', async (req, res) => {
     try {
       // find the file in the database
-      const file = getFile(req.params.uuid);
+      const file = await getFile(req.params.uuid);
       if (!file) {
         return res.status(404).send('No file found with the given uuid');
       }
 
       // decode the base64 data back into binary
-      const binaryData = Buffer.from(file.data, 'base64');
+      const binaryData = Buffer.from(file.data.toString('utf8'), 'base64');
 
       // set the content-type header based on the file type
       // assuming the 'name' field in your file model contains the file name with extension
@@ -61,10 +61,10 @@ try {
       res.setHeader('Content-Type', mimeType || 'application/octet-stream');
 
       // set the content-disposition header so browsers handle the data correctly
-      res.setHeader('Content-Disposition', `attachment; filename=${file.name}`);
+     res.setHeader('Content-Disposition', `attachment; filename=${file.name}`);
 
       // send the data
-      res.send(binaryData);
+      res.end(binaryData);
 
     } catch (error) {
       console.error(error);
@@ -76,8 +76,7 @@ try {
     upload.array('files', 12),
     body('name').isLength({ min: 5 }),
     body('email').isEmail(),
-    body('phone').isMobilePhone(),
-    body('message').isLength({ min: 100 }),
+    body('message').isLength({ min: 50 }),
     async (req, res) => {
       logger.info('Start /submit')
       //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
@@ -110,7 +109,8 @@ try {
       reqForm.files = filesList;
       reqForm.baseUrl = req.protocol + '://' + req.get('host');
       sendMail(process.env.EMAIL_TO, 'Formular nou', formatFormForEmail(reqForm));
-      res.send('Va multumim!');
+      res.redirect('/success.html');
+
     });
   var server = app.listen(process.env.PORT || 3000, function () { // 8080
     logger.info('Node server is running..');

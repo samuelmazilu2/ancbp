@@ -16,7 +16,7 @@
     <div class="form-container">
         <div class="logo"></div>
         <h2 style="text-align: center;">Formular Sesizare</h2>
-        <form id="submit-form" enctype="multipart/form-data">
+        <form action="/submit" method="POST" id="submit-form"    encType="multipart/form-data">
 			<label class="form-label" for="name">
 			    <i class="form-icon fas fa-user"></i>
 			    Nume <span style="color: red;">*</span>:
@@ -35,11 +35,11 @@
             </label>
             <input type="tel" id="phone" name="phone" class="form-field" placeholder="07..." required> 
 
-            <label class="form-label" for="description">
+            <label class="form-label" for="message">
                 <i class="form-icon fas fa-info-circle"></i>
                 Descrierea problemei <span style="color: red;">*</span>:
             </label>
-            <textarea id="description" name="description" class="form-field" placeholder="Descrierea problemei" rows="4" style="resize: vertical;" required></textarea>
+            <textarea id="message" name="message" class="form-field" placeholder="Descrierea problemei" rows="4" style="resize: vertical;" required></textarea>
 
             <label class="form-label" for="locality">
                 <i class="form-icon fas fa-map-marker-alt"></i>
@@ -114,7 +114,7 @@
             <input type="file" id="files" name="files" multiple  class="form-field">
 
     <div class="wrapper-no4">
-       	<button type="button" class="button-bird" id="submit-button">
+       	<button type="submit" class="button-bird" id="submit-button">
             <p class="button-bird__text">Trimite Sesizarea</p>
             <svg version="1.1" class="feather" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 75 38" style="enable-background:new 0 0 75 38; margin-top: 40px;" xml:space="preserve">
