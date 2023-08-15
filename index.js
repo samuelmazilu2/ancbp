@@ -21,7 +21,7 @@ app.use(
       defaultSrc: ["'self'"],
       connectSrc: ["'self'", "https://maps.googleapis.com"],
       scriptSrc: ["'self'", "https://maps.googleapis.com"],
-      imgSrc: ["'self'", "https://cfriedri.ch", "https://images.unsplash.com"],
+      imgSrc: ["'self'", "https://cfriedri.ch", "https://images.unsplash.com", "https://maps.googleapis.com","https://www.cfriedri.ch","https://maps.gstatic.com","https://www.w3.org"],
       // Add other directives as needed
     },
   })
