@@ -12,7 +12,7 @@ function initMap() {
         GPS: "46.76158234009808, 23.632253477933897",
         Remarks: "mult gunoi, plastic",
         petition_no: "",
-        Imagers: [
+        imagesBefore: [
           "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Trash_in_forest.jpg/1600px-Trash_in_forest.jpg"
         ],
         Status: "iginenizat",
@@ -24,7 +24,7 @@ function initMap() {
         GPS: "46.62768781957937, 22.834431734624754",
         Remarks: "mult gunoi, plastic",
         petition_no: "",
-        Imagers: [
+        imagesAfter: [
           "https://upload.wikimedia.org/wikipedia/en/e/e7/Trash_TIST.jpg",
           "https://upload.wikimedia.org/wikipedia/commons/8/83/Red_Forest_Hill.jpg"
         ],
@@ -37,7 +37,11 @@ function initMap() {
         GPS: "46.8583113365033, 23.037420588134108",
         Remarks: "mult gunoi, plastic",
         petition_no: "",
-        Imagers: [
+        imagesBefore: [
+          "https://upload.wikimedia.org/wikipedia/en/e/e7/Trash_TIST.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/8/83/Red_Forest_Hill.jpg"
+        ],
+        imagesAfter: [
           "https://upload.wikimedia.org/wikipedia/en/e/e7/Trash_TIST.jpg",
           "https://upload.wikimedia.org/wikipedia/commons/8/83/Red_Forest_Hill.jpg"
         ],
@@ -75,18 +79,23 @@ function initMap() {
           "Improve: " +
           location.Improve;
 
-        if (Array.isArray(location.Imagers) && location.Imagers.length) {
-          contentString += '<div class="image-container">';
-          location.Imagers.forEach(function (imageUrl) {
-            contentString +=
-              '<img src="' +
-              imageUrl +
-              '" alt="Image for ' +
-              location.Location +
-              '" style="max-width:100%;height:auto;display:block;margin-top:10px;">';
-          });
-          contentString += "</div>";
-        }
+      // Add imagesBefore
+      if (Array.isArray(location.imagesBefore) && location.imagesBefore.length) {
+        contentString += '<div><strong>Before:</strong>';
+        location.imagesBefore.forEach(function(imageUrl) {
+          contentString += '<img src="' + imageUrl + '" alt="Before image for ' + location.Location + '" style="max-width:100%;height:auto;display:block;margin-top:10px;">';
+        });
+        contentString += '</div>';
+      }
+
+      // Add imagesAfter
+      if (Array.isArray(location.imagesAfter) && location.imagesAfter.length) {
+        contentString += '<div><strong>After:</strong>';
+        location.imagesAfter.forEach(function(imageUrl) {
+          contentString += '<img src="' + imageUrl + '" alt="After image for ' + location.Location + '" style="max-width:100%;height:auto;display:block;margin-top:10px;">';
+        });
+        contentString += '</div>';
+      }
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
       });

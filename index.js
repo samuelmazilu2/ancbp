@@ -18,10 +18,11 @@ const helmet = require('helmet')
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
+      frameSrc:["'self'","https://www.google.com"],
       defaultSrc: ["'self'"],
-      connectSrc: ["'self'", "https://maps.googleapis.com"],
-      scriptSrc: ["'self'", "https://maps.googleapis.com"],
-      imgSrc: ["'self'", "https://cfriedri.ch", "https://images.unsplash.com", "https://maps.googleapis.com","https://www.cfriedri.ch","https://maps.gstatic.com","https://www.w3.org"],
+      connectSrc: ["'self'", "https://maps.googleapis.com", "https://www.google.com", "www.gstatic.com"],
+      scriptSrc: ["'self'", "https://maps.googleapis.com", "https://www.google.com", "www.gstatic.com"],
+      imgSrc: ["'self'", "upload.wikimedia.org","https://cfriedri.ch", "https://images.unsplash.com", "https://maps.googleapis.com","https://www.cfriedri.ch","https://maps.gstatic.com","https://www.w3.org"],
       // Add other directives as needed
     },
   })
@@ -79,7 +80,7 @@ try {
     body('message').isLength({ min: 50 }),
     async (req, res) => {
       logger.info('Start /submit')
-      //createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
+     // createAssessment(req.body.g_token, 'homepage', () => console.log('ok'), ()=>console.log('error'));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
